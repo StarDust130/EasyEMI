@@ -4,8 +4,9 @@ import { Chart } from "../elements/Chart";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
-import { Slider } from "../ui/slider"; 
+import { Slider } from "../ui/slider";
 import { Input } from "../ui/input";
+import jsPDF from "jspdf";
 
 import {
   Drawer,
@@ -17,7 +18,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-
 
 const EmiCalculator = () => {
   // State variables
@@ -39,9 +39,51 @@ const EmiCalculator = () => {
     return emi;
   };
 
+  // Total Payment Calculation
   const emi = calculateEMI();
   const totalPayment = emi * loanTenure;
   const totalInterest = totalPayment - (loanAmount - prepayment);
+
+  // Month wise EMI Calculation
+  const getMonthWiseBreakdown = () => {
+    let balance = loanAmount;
+    const rate = interestRate / 12 / 100;
+    let breakdown = [];
+
+    for (let i = 1; i <= loanTenure; i++) {
+      let interestPaid = balance * rate;
+      let principalPaid = emi - interestPaid;
+      balance -= principalPaid;
+
+      breakdown.push({
+        month: i,
+        emi: emi.toFixed(2),
+        interestPaid: interestPaid.toFixed(2),
+        principalPaid: principalPaid.toFixed(2),
+        remainingBalance: balance.toFixed(2),
+      });
+    }
+    return breakdown;
+  };
+
+  const monthWiseBreakdown = getMonthWiseBreakdown();
+
+  // Download as PDF
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    doc.text("Month-wise EMI Breakdown", 10, 10);
+    monthWiseBreakdown.forEach((row, index) => {
+      doc.text(
+        `Month ${row.month}: EMI ${row.emi}, Interest ${row.interestPaid}, Principal ${row.principalPaid}, Remaining Balance ${row.remainingBalance}`,
+        10,
+        20 + index * 10
+      );
+    });
+    doc.save("EMI_Breakdown.pdf");
+  };
+
+  
+
 
   return (
     <div className="py-6 px-10 w-full flex  flex-col-reverse md:flex-row">
@@ -78,7 +120,7 @@ const EmiCalculator = () => {
         {useSlider ? (
           <>
             <div className="w-full mt-5">
-              <Label htmlFor="loanAmount">Loan amount</Label>
+              <Label htmlFor="loanAmount">Loan amount: {loanAmount}</Label>
               <Slider
                 defaultValue={[loanAmount]}
                 min={1000}
@@ -88,7 +130,9 @@ const EmiCalculator = () => {
               />
             </div>
             <div className="w-full mt-8">
-              <Label htmlFor="interestRate">Interest rate</Label>
+              <Label htmlFor="interestRate">
+                Interest rate: {interestRate}%
+              </Label>
               <Slider
                 defaultValue={[interestRate]}
                 min={0}
@@ -98,7 +142,9 @@ const EmiCalculator = () => {
               />
             </div>
             <div className="w-full mt-8">
-              <Label htmlFor="loanTenure">Loan tenure (in months)</Label>
+              <Label htmlFor="loanTenure">
+                Loan tenure: {loanTenure} (in months)
+              </Label>
               <Slider
                 defaultValue={[loanTenure]}
                 min={1}
@@ -108,7 +154,9 @@ const EmiCalculator = () => {
               />
             </div>
             <div className="w-full mt-8">
-              <Label htmlFor="prepayment">Prepayment (Optional)</Label>
+              <Label htmlFor="prepayment">
+                Prepayment: {prepayment} (Optional)
+              </Label>
               <Slider
                 defaultValue={[prepayment]}
                 min={0}
@@ -176,12 +224,7 @@ const EmiCalculator = () => {
           <Button
             variant={"outline"}
             className="mt-10 mr-2"
-            onClick={() => {
-              setLoanAmount(50000);
-              setInterestRate(7);
-              setLoanTenure(12);
-              setPrepayment(0);
-            }}
+            onClick={downloadPDF}
           >
             Dowload as PDF
           </Button>
@@ -205,7 +248,28 @@ const EmiCalculator = () => {
               <DrawerHeader>
                 <DrawerTitle>Are you absolutely sure?</DrawerTitle>
                 <DrawerDescription>
-                  This action cannot be undone.
+                  <table className="table-auto w-full">
+                    <thead>
+                      <tr>
+                        <th>Month</th>
+                        <th>EMI</th>
+                        <th>Interest Paid</th>
+                        <th>Principal Paid</th>
+                        <th>Remaining Balance</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {monthWiseBreakdown.map((row) => (
+                        <tr key={row.month}>
+                          <td>{row.month}</td>
+                          <td>{row.emi}</td>
+                          <td>{row.interestPaid}</td>
+                          <td>{row.principalPaid}</td>
+                          <td>{row.remainingBalance}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </DrawerDescription>
               </DrawerHeader>
               <DrawerFooter>
