@@ -28,7 +28,6 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
 
-
 const sidebarItems = [
   {
     label: "EMI Calculator",
@@ -49,7 +48,7 @@ const sidebarItems = [
 const Header = () => {
   const pathname = usePathname();
   return (
-    <header className="flex justify-between items-center px-4 py-2 border-b">
+    <header className="flex justify-between items-center px-4 py-2 border-gray-500 border-b">
       {/* Hamburger Menu */}
 
       <Sheet>
@@ -59,7 +58,7 @@ const Header = () => {
           </div>
         </SheetTrigger>
         <SheetContent>
-          <div className=" md:hidden w-full border-r h-screen  flex flex-col justify-between">
+          <div className=" md:hidden w-full border-r h-screen border-gray-500  flex flex-col justify-between">
             {/* Logo Section */}
             <div>
               <div className="flex justify-center items-center gap-1 mt-5">

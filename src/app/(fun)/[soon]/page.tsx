@@ -5,7 +5,7 @@ import Link from "next/link";
 const ComingSoonPage = () => {
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="text-center p-8  rounded-lg shadow-lg">
+      <div className="text-center p-8  rounded-lg ">
         <Image
           src="/soon.webp"
           alt="Coming Soon"

@@ -34,7 +34,7 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="hidden w-40 border-r h-screen md:flex flex-col justify-between">
+    <div className="hidden w-40 border-r border-gray-500 h-screen md:flex flex-col justify-between">
       {/* Logo Section */}
       <div>
         <div className="flex justify-center items-center gap-1 mt-5">
