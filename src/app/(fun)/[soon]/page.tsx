@@ -26,7 +26,7 @@ const ComingSoonPage = () => {
             </span>
           </Link>
         </p>
-        <Link href="/">
+        <Link href="/emi-calculator">
           <Button variant={"outline"}>Back to Home</Button>
         </Link>
       </div>
