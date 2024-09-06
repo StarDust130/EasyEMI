@@ -15,7 +15,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "EasyEMI",
-  description: "A simple EMI calculator", 
+  description: "A simple EMI calculator",
 };
 
 export default function RootLayout({
