@@ -1,3 +1,4 @@
+"use client";
 import { Bell, Mail, Menu, Search } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "../ui/input";
@@ -25,17 +26,28 @@ import {
 import Link from "next/link";
 
 import { Button } from "../ui/button";
+import { usePathname } from "next/navigation";
+
 
 const sidebarItems = [
-  { label: "EMI Calculator", icon: <Home size={16} /> },
-  { label: "Investments", icon: <BarChart size={16} /> },
-  { label: "Credit Cards", icon: <CreditCard size={16} /> },
-  { label: "Loans", icon: <DollarSign size={16} /> },
-  { label: "Reports", icon: <FileText size={16} /> },
-  { label: "Analytics", icon: <PieChart size={16} /> },
+  {
+    label: "EMI Calculator",
+    icon: <Home size={16} />,
+    path: "/emi-calculator",
+  },
+  { label: "Investments", icon: <BarChart size={16} />, path: "/investments" },
+  {
+    label: "Credit Cards",
+    icon: <CreditCard size={16} />,
+    path: "/credit-cards",
+  },
+  { label: "Loans", icon: <DollarSign size={16} />, path: "/loans" },
+  { label: "Reports", icon: <FileText size={16} />, path: "/reports" },
+  { label: "Analytics", icon: <PieChart size={16} />, path: "/analytics" },
 ];
 
 const Header = () => {
+  const pathname = usePathname();
   return (
     <header className="flex justify-between items-center px-4 py-2 border-b">
       {/* Hamburger Menu */}
@@ -60,8 +72,10 @@ const Header = () => {
                 {sidebarItems.map((item, index) => (
                   <Link
                     key={index}
-                    href="#"
-                    className="flex items-center justify-center sm:justify-start gap-2  text-lg  dark:text-white text-gray-500 hover:bg-secondary hover:text-gray-800 font-semibold rounded-lg py-2 px-3 transition-colors duration-200"
+                    href={item.path}
+                    className={`flex items-center gap-2 text-xs dark:text-white text-gray-500 hover:bg-secondary hover:text-gray-800 font-semibold rounded-lg py-2 px-3 transition-colors duration-200 ${
+                      pathname === item.path ? "bg-secondary text-gray-800" : ""
+                    }`}
                   >
                     {item.icon}
                     <span>{item.label}</span>

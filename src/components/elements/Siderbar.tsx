@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import {
   Home,
@@ -31,7 +31,7 @@ const sidebarItems = [
 ];
 
 const Sidebar = () => {
-  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className="hidden w-40 border-r h-screen md:flex flex-col justify-between">
@@ -49,9 +49,7 @@ const Sidebar = () => {
               key={index}
               href={item.path}
               className={`flex items-center gap-2 text-xs dark:text-white text-gray-500 hover:bg-secondary hover:text-gray-800 font-semibold rounded-lg py-2 px-3 transition-colors duration-200 ${
-                router.pathname === item.path
-                  ? "bg-secondary text-gray-800"
-                  : ""
+                pathname === item.path ? "bg-secondary text-gray-800" : ""
               }`}
             >
               {item.icon}
