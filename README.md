@@ -6,6 +6,16 @@ Welcome to **easyEmi**! 🚀 This is your go-to tool for calculating Equated Mon
 
 Check out the live demo of **easyEmi**  [here](https://easy-emi-myroi.vercel.app/emi-calculator) hosted on Vercel! 🌐
 
+
+## 💻 Tech Stack
+
+- **Next.js** 🚀: For a powerful and scalable React framework.
+- **Tailwind CSS** 🌟: For beautiful and responsive styling.
+- **React** ⚛️: For building interactive UIs.
+- **Shadcn** 🛠️: For pre-built UI components.
+- **Vercel** 🌐: For seamless deployment.
+- **TypeScript** 🔤: For type safety and enhanced development.
+
 ## 🛠️ Features
 
 - **User-Friendly Input Form:** 
