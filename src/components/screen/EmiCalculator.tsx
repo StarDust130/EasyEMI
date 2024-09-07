@@ -161,7 +161,7 @@ const EmiCalculator = () => {
     <>
       <div className="py-6 px-10 w-full flex  flex-col-reverse md:flex-row">
         <div className="flex flex-col w-full md:w-1/2 mt-5">
-          <h1 className="font-semibold text-2xl text-center md:text-start  ">
+          <h1 className="font-semibold text-2xl md:text-4xl text-center md:text-start  ">
             See how much you can save <br /> with EasyEMI
           </h1>
 
