@@ -48,8 +48,9 @@ const EmiCalculator = () => {
   useEffect(() => {
     if (loanAmount - prepayment <= 0 || loanTenure <= 0) {
       toast({
-        title: "Error",
-        description: "Loan amount and tenure must be greater than 0",
+        title: "Error: Invalid Loan Details 😿",
+        description:
+          "Loan amount and tenure must be greater than prepaid amount and not zero. Please adjust the loan details.",
         variant: "destructive",
       });
     }
