@@ -29,6 +29,7 @@ const EmiCalculator = () => {
   const [prepayment, setPrepayment] = useState(0);
   const [useSlider, setUseSlider] = useState(true);
   const [showMonthWise, setShowMonthWise] = useState(false);
+  const [error, setError] = useState(false);
   const { toast } = useToast();
 
   // EMI Calculation Logic
@@ -47,12 +48,15 @@ const EmiCalculator = () => {
   // useEffect for showing loan errors
   useEffect(() => {
     if (loanAmount - prepayment <= 0 || loanTenure <= 0) {
+      setError(true);
       toast({
         title: "Error: Invalid Loan Details 😿",
         description:
           "Loan amount and tenure must be greater than prepaid amount and not zero. Please adjust the loan details.",
         variant: "destructive",
       });
+    } else {
+      setError(false); // Reset error if values are valid
     }
   }, [loanAmount, prepayment, loanTenure, toast]);
 
@@ -297,7 +301,10 @@ const EmiCalculator = () => {
           <div className="flex justify-end items-center w-full">
             <Button
               variant={"outline"}
-              className="mt-10 mr-2"
+              className={`mt-10 mr-2 ${
+                error ? "disabled:opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={error}
               onClick={downloadPDF}
             >
               Dowload as PDF
@@ -305,7 +312,10 @@ const EmiCalculator = () => {
 
             <Button
               variant={"default"}
-              className="mt-10 mr-2"
+              className={`mt-10 mr-2 ${
+                error ? "disabled:opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={error}
               onClick={() => setShowMonthWise(true)}
             >
               View Month wise EMI
