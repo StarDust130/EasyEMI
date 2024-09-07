@@ -34,12 +34,12 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="hidden h-screen w-40 border-r border-gray-500  md:flex flex-col justify-between">
+    <div className="hidden h-screen w-[16rem] border-r border-gray-500  md:flex flex-col justify-between">
       {/* Logo Section */}
       <div>
         <Link href={"/"} className="flex justify-center items-center gap-1 mt-5">
           <Image src="/logo.png" alt="logo" width={30} height={20} />
-          <h1 className="text-lg font-bold">Easy EMI</h1>
+          <h1 className="text-xl font-bold">Easy EMI</h1>
         </Link>
 
         {/* Sidebar Links */}
@@ -48,7 +48,7 @@ const Sidebar = () => {
             <Link
               key={index}
               href={item.path}
-              className={`flex items-center gap-2 text-xs dark:text-white text-gray-500 hover:bg-secondary hover:text-gray-800 font-semibold rounded-lg py-2 px-3 transition-colors duration-200 ${
+              className={`flex items-center gap-2 text-lg dark:text-white text-gray-500 hover:bg-secondary hover:text-gray-800 font-semibold rounded-lg py-2 px-3 transition-colors duration-200 ${
                 pathname === item.path ? "bg-secondary text-gray-800" : ""
               }`}
             >
