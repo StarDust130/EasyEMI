@@ -48,7 +48,7 @@ const Sidebar = () => {
             <Link
               key={index}
               href={item.path}
-              className={`flex items-center gap-2 text-xs dark:text-white text-gray-500 hover:bg-secondary hover:text-gray-800 font-semibold rounded-lg py-2 px-3 transition-colors duration-200 ${
+              className={`flex items-center gap-2 text-sm dark:text-white text-gray-500 hover:bg-secondary hover:text-gray-800 font-semibold rounded-lg py-2 px-3 transition-colors duration-200 ${
                 pathname === item.path ? "bg-secondary text-gray-800" : ""
               }`}
             >
