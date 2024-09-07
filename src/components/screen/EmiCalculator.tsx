@@ -50,11 +50,11 @@ const EmiCalculator = () => {
   const getMonthWiseBreakdown = () => {
     let balance = loanAmount;
     const rate = interestRate / 12 / 100;
-    let breakdown = [];
+    const breakdown = [];
 
     for (let i = 1; i <= loanTenure; i++) {
-      let interestPaid = balance * rate;
-      let principalPaid = emi - interestPaid;
+      const interestPaid = balance * rate;
+      const principalPaid = emi - interestPaid;
       balance -= principalPaid;
 
       breakdown.push({
