@@ -151,7 +151,9 @@ const EmiCalculator = () => {
           {useSlider ? (
             <>
               <div className="w-full mt-5">
-                <Label htmlFor="loanAmount" className=" my-5 py-5">Loan amount: {loanAmount}</Label>
+                <Label htmlFor="loanAmount" className=" my-5 py-5">
+                  Loan amount: {loanAmount}
+                </Label>
                 <Slider
                   defaultValue={[loanAmount]}
                   min={1000}
@@ -278,6 +280,7 @@ const EmiCalculator = () => {
             emi={emi}
             totalPayment={totalPayment}
             totalInterest={totalInterest}
+            prepayment={prepayment}
           />
         </div>
         {showMonthWise && (
