@@ -6,7 +6,8 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Slider } from "../ui/slider";
 import { Input } from "../ui/input";
-import jsPDF from "jspdf";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
 
 import {
   Table,
@@ -18,17 +19,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-
 const EmiCalculator = () => {
   // State variables
   const [loanAmount, setLoanAmount] = useState(10_000);
@@ -37,7 +27,6 @@ const EmiCalculator = () => {
   const [prepayment, setPrepayment] = useState(0);
   const [useSlider, setUseSlider] = useState(true);
   const [showMonthWise, setShowMonthWise] = useState(false);
-
 
   // EMI Calculation
   const calculateEMI = () => {
@@ -81,18 +70,51 @@ const EmiCalculator = () => {
   const monthWiseBreakdown = getMonthWiseBreakdown();
 
   // Download as PDF
-  const downloadPDF = () => {
-    const doc = new jsPDF();
-    doc.text("Month-wise EMI Breakdown", 10, 10);
-    monthWiseBreakdown.forEach((row, index) => {
-      doc.text(
-        `Month ${row.month}: EMI ${row.emi}, Interest ${row.interestPaid}, Principal ${row.principalPaid}, Remaining Balance ${row.remainingBalance}`,
-        10,
-        20 + index * 10
-      );
-    });
-    doc.save("EMI_Breakdown.pdf");
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+const downloadPDF = () => {
+  const documentDefinition = {
+    content: [
+      { text: "Month-wise EMI Breakdown", style: "header" },
+      {
+        style: "tableExample",
+        table: {
+          headerRows: 1,
+          widths: ["*", "*", "*", "*", "*"],
+          body: [
+            [
+              "Month",
+              "EMI Paid",
+              "Interest Paid",
+              "Principal Paid",
+              "Remaining Balance",
+            ],
+            ...monthWiseBreakdown.map((row) => [
+              row.month,
+              row.emi,
+              row.interestPaid,
+              row.principalPaid,
+              row.remainingBalance,
+            ]),
+          ],
+        },
+        layout: "lightHorizontalLines",
+      },
+    ],
+    styles: {
+      header: {
+        fontSize: 18,
+        bold: true,
+        margin: [0, 0, 0, 10],
+      },
+      tableExample: {
+        margin: [0, 5, 0, 15],
+      },
+    },
   };
+
+  pdfMake.createPdf(documentDefinition).download("EMI_Breakdown.pdf");
+};
 
   return (
     <>

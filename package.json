@@ -25,9 +25,11 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.3",
     "lucide-react": "^0.439.0",
     "next": "14.2.8",
     "next-themes": "^0.3.0",
+    "pdfmake": "^0.2.12",
     "react": "^18",
     "react-dom": "^18",
     "recharts": "^2.12.7",
@@ -36,7 +38,9 @@
     "vaul": "^0.9.2"
   },
   "devDependencies": {
+    "@types/jspdf": "^2.0.0",
     "@types/node": "^20",
+    "@types/pdfmake": "^0.2.9",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
