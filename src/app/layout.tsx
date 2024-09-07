@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/elements/theme-provider";
 import { Roboto } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster";
 
 const roboto = Roboto({
   weight: "400",
@@ -28,6 +29,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

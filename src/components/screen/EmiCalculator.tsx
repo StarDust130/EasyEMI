@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Chart } from "../elements/Chart";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
@@ -19,6 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useToast } from "@/hooks/use-toast";
 
 const EmiCalculator = () => {
   // State variables
@@ -28,12 +29,45 @@ const EmiCalculator = () => {
   const [prepayment, setPrepayment] = useState(0);
   const [useSlider, setUseSlider] = useState(true);
   const [showMonthWise, setShowMonthWise] = useState(false);
+  const { toast } = useToast();
 
   // EMI Calculation
   const calculateEMI = () => {
     const principal = loanAmount - prepayment;
     const rate = interestRate / 12 / 100;
     const tenure = loanTenure;
+
+    useEffect(() => {
+      if (principal <= 0 || loanTenure <= 0) {
+        toast({
+          title: "Error",
+          description: "Loan amount and tenure must be greater than 0",
+          variant: "destructive",
+        });
+      }
+    }, [principal, loanTenure]); // This will run when these values change
+
+    useEffect(() => {
+      if (showMonthWise) {
+        toast({
+          title: "EMI Breakdown",
+          description: "Displaying month-wise EMI breakdown.",
+        });
+      }
+    }, [showMonthWise]);
+
+    useEffect(() => {
+      useSlider
+        ? toast({
+            title: "Slider Mode Activated",
+            description: "Use the sliders to adjust the loan details.",
+          })
+        : toast({
+            title: "Input Mode Activated",
+            description: "You can now manually input the loan details.",
+          });
+    }, [useSlider]); // Only runs when useSlider changes
+
     if (principal <= 0 || tenure <= 0) return 0;
     const emi =
       (principal * rate * Math.pow(1 + rate, tenure)) /
