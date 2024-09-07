@@ -48,7 +48,7 @@ const sidebarItems = [
 const Header = () => {
   const pathname = usePathname();
   return (
-    <header className="flex justify-between items-center px-4 py-2 border-gray-500 border-b">
+    <header className="flex sticky top-0 z-10 justify-between items-center px-4 py-2 border-gray-500 border-b">
       {/* Hamburger Menu */}
 
       <Sheet>

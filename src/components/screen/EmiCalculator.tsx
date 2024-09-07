@@ -9,6 +9,16 @@ import { Input } from "../ui/input";
 import jsPDF from "jspdf";
 
 import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+import {
   Drawer,
   DrawerClose,
   DrawerContent,
@@ -26,6 +36,8 @@ const EmiCalculator = () => {
   const [loanTenure, setLoanTenure] = useState(10);
   const [prepayment, setPrepayment] = useState(0);
   const [useSlider, setUseSlider] = useState(true);
+  const [showMonthWise, setShowMonthWise] = useState(false);
+
 
   // EMI Calculation
   const calculateEMI = () => {
@@ -81,9 +93,6 @@ const EmiCalculator = () => {
     });
     doc.save("EMI_Breakdown.pdf");
   };
-
-  
-
 
   return (
     <div className="py-6 px-10 w-full flex  flex-col-reverse md:flex-row">
@@ -229,57 +238,13 @@ const EmiCalculator = () => {
             Dowload as PDF
           </Button>
 
-          <Drawer>
-            <DrawerTrigger>
-              <Button
-                variant={"default"}
-                className="mt-10 mr-2"
-                onClick={() => {
-                  setLoanAmount(50000);
-                  setInterestRate(7);
-                  setLoanTenure(12);
-                  setPrepayment(0);
-                }}
-              >
-                View Month wise EMI
-              </Button>
-            </DrawerTrigger>
-            <DrawerContent>
-              <DrawerHeader>
-                <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-                <DrawerDescription>
-                  <table className="table-auto w-full">
-                    <thead>
-                      <tr>
-                        <th>Month</th>
-                        <th>EMI</th>
-                        <th>Interest Paid</th>
-                        <th>Principal Paid</th>
-                        <th>Remaining Balance</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {monthWiseBreakdown.map((row) => (
-                        <tr key={row.month}>
-                          <td>{row.month}</td>
-                          <td>{row.emi}</td>
-                          <td>{row.interestPaid}</td>
-                          <td>{row.principalPaid}</td>
-                          <td>{row.remainingBalance}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </DrawerDescription>
-              </DrawerHeader>
-              <DrawerFooter>
-                <Button>Submit</Button>
-                <DrawerClose>
-                  <Button variant="outline">Cancel</Button>
-                </DrawerClose>
-              </DrawerFooter>
-            </DrawerContent>
-          </Drawer>
+          <Button
+            variant={"default"}
+            className="mt-10 mr-2"
+            onClick={() => setShowMonthWise(true)}
+          >
+            View Month wise EMI
+          </Button>
         </div>
       </div>
 
@@ -290,6 +255,40 @@ const EmiCalculator = () => {
           totalInterest={totalInterest}
         />
       </div>
+      {showMonthWise && (
+        <div className="w-full md:w-1/2 md:ml-5 mt-5 md:mt-0">
+          <Table>
+            <TableCaption>Month-wise EMI Breakdown</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Month</TableHead>
+                <TableHead>EMI Paid</TableHead>
+                <TableHead>Interest Paid</TableHead>
+                <TableHead>Principal Paid</TableHead>
+                <TableHead>Remaining Balance</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {monthWiseBreakdown.map((row) => (
+                <TableRow key={row.month}>
+                  <TableCell>{row.month}</TableCell>
+                  <TableCell>{row.emi}</TableCell>
+                  <TableCell>{row.interestPaid}</TableCell>
+                  <TableCell>{row.principalPaid}</TableCell>
+                  <TableCell>{row.remainingBalance}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <Button
+            variant={"outline"}
+            className="mt-5"
+            onClick={() => setShowMonthWise(false)}
+          >
+            Close
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
