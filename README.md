@@ -43,4 +43,4 @@ Check out the live demo of **easyEmi**  [here](https://easy-emi-myroi.vercel.app
 
 1. **Clone the Repo:**
    ```bash
-   git clone https://github.com/yourusername/easyEmi.git
+   git clone https://github.com/StarDust130/EasyEMI.git
