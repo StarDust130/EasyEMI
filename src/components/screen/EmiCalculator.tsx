@@ -281,7 +281,7 @@ const EmiCalculator = () => {
           />
         </div>
         {showMonthWise && (
-          <div className="fixed inset-0 bg-black  flex flex-col p-6 z-50">
+          <div className="fixed inset-0 bg-black text-white  flex flex-col p-6 z-50">
             <div className="overflow-x-auto flex-1 rounded-lg shadow-lg">
               <Table>
                 <TableCaption>Month-wise EMI Breakdown</TableCaption>
@@ -309,7 +309,7 @@ const EmiCalculator = () => {
             </div>
             <Button
               variant={"outline"}
-              className="mt-4 self-end"
+              className="mt-4 self-end text-black dark:text-white"
               onClick={() => setShowMonthWise(false)}
             >
               Close
