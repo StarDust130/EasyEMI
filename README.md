@@ -41,6 +41,24 @@ Check out the live demo of **easyEmi**  [here](https://easy-emi-myroi.vercel.app
 
 ## 💻 Getting Started
 
-1. **Clone the Repo:**
-   ```bash
-   git clone https://github.com/StarDust130/EasyEMI.git
+
+
+```bash
+# 1. Clone the Repo:
+git clone https://github.com/StarDust130/EasyEMI.git
+
+# 2. Navigate to the Project Directory:
+cd EasyEMI
+
+# 3. Install Dependencies:
+npm install
+
+# 4. Run the Development Server:
+npm run dev
+
+# 5. Open Your Browser and navigate to:
+http://localhost:3000
+```
+
+## **Code is the poetry of the digital age.** 🚀
+
