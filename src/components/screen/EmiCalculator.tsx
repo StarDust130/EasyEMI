@@ -104,7 +104,7 @@ const EmiCalculator = () => {
         header: {
           fontSize: 18,
           bold: true,
-          margin: [0, 0, 0, 10],
+          margin: [0, 0, 0, 10] as [number, number, number, number],
         },
         tableExample: {
           margin: [0, 5, 0, 15],

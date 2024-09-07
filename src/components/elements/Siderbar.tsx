@@ -37,10 +37,10 @@ const Sidebar = () => {
     <div className="hidden h-screen w-40 border-r border-gray-500  md:flex flex-col justify-between">
       {/* Logo Section */}
       <div>
-        <div className="flex justify-center items-center gap-1 mt-5">
+        <Link href={"/"} className="flex justify-center items-center gap-1 mt-5">
           <Image src="/logo.png" alt="logo" width={30} height={20} />
           <h1 className="text-lg font-bold">Easy EMI</h1>
-        </div>
+        </Link>
 
         {/* Sidebar Links */}
         <nav className="mt-8 space-y-3 px-3">
