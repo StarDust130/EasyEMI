@@ -107,7 +107,7 @@ const EmiCalculator = () => {
           margin: [0, 0, 0, 10] as [number, number, number, number],
         },
         tableExample: {
-          margin: [0, 5, 0, 15],
+          margin: [0, 5, 0, 15] as [number, number, number, number],
         },
       },
     };
