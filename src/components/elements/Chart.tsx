@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Label, Pie, PieChart } from "recharts";
-import { DollarSign, BarChart, Wallet, IndianRupee, Landmark } from "lucide-react";
+import { BarChart, Wallet, IndianRupee, Landmark } from "lucide-react";
 import {
   Card,
   CardContent,
