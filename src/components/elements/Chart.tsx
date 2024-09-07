@@ -62,7 +62,7 @@ export function Chart({
 
   return (
     <div className="flex justify-start  items-center flex-col h-full">
-      <Card className="flex flex-col">
+      <Card className="flex flex-col w-full md:w-[80%]">
         <CardHeader className="items-center pb-0">
           <CardTitle>EMI Breakdown</CardTitle>
           <CardDescription>
@@ -129,36 +129,42 @@ export function Chart({
       </Card>
 
       <div className="md:p-6 p-4 rounded-lg w-[80%] grid grid-cols-2 gap-x-8 gap-y-6">
-        <div className="flex items-center">
+        <div className="flex items-center flex-wrap">
           <Landmark size={30} className="text-green-500 mr-3" />
           <div>
             <h3 className="text-sm font-medium">EMI</h3>
-            <p className="text-lg font-bold">₹{emi.toFixed(2)}</p>
+            <p className="text-lg font-bold break-all">₹{emi.toFixed(2)}</p>
           </div>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center flex-wrap">
           <Wallet size={30} className="text-blue-500 mr-3" />
           <div>
             <h3 className="text-sm font-medium">Total Payment</h3>
-            <p className="text-lg font-bold">₹{totalPayment.toFixed(2)}</p>
+            <p className="text-lg font-bold break-all">
+              ₹{totalPayment.toFixed(2)}
+            </p>
           </div>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center flex-wrap">
           <BarChart size={30} className="text-orange-500 mr-3" />
           <div>
             <h3 className="text-sm font-medium">Total Interest</h3>
-            <p className="text-lg font-bold">₹{totalInterest.toFixed(2)}</p>
+            <p className="text-lg font-bold break-all">
+              ₹{totalInterest.toFixed(2)}
+            </p>
           </div>
         </div>
 
         {prepayment !== undefined && (
-          <div className="flex items-center">
+          <div className="flex items-center flex-wrap">
             <IndianRupee size={30} className="text-red-500 mr-3" />
             <div>
               <h3 className="text-sm font-medium">Prepayment</h3>
-              <p className="text-lg font-bold">₹{prepayment.toFixed(2)}</p>
+              <p className="text-lg font-bold break-all">
+                ₹{prepayment.toFixed(2)}
+              </p>
             </div>
           </div>
         )}
