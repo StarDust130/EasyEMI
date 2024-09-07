@@ -174,7 +174,8 @@ const EmiCalculator = () => {
               </div>
               <div className="w-full mt-8">
                 <Label htmlFor="loanTenure">
-                  Loan tenure: {loanTenure} (in months)
+                  Loan tenure: {loanTenure} (in months){" "}
+                  {(loanTenure / 12).toFixed(2)} years
                 </Label>
                 <Slider
                   defaultValue={[loanTenure]}
@@ -225,7 +226,9 @@ const EmiCalculator = () => {
                 />
               </div>
               <div className="w-full mt-5">
-                <Label htmlFor="loanTenure">Loan tenure (in months)</Label>
+                <Label htmlFor="loanTenure">
+                  Loan tenure (in months) {(loanTenure / 12).toFixed(2)} years
+                </Label>
                 <Input
                   id="loanTenure"
                   type="number"
