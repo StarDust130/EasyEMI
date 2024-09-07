@@ -61,7 +61,7 @@ export function Chart({
   ];
 
   return (
-    <div className="flex justify-between items-center flex-col h-screen">
+    <div className="flex justify-evenly items-center flex-col h-full">
       <Card className="flex flex-col">
         <CardHeader className="items-center pb-0">
           <CardTitle>EMI Breakdown</CardTitle>
