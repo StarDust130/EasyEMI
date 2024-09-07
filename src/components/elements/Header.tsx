@@ -58,7 +58,7 @@ const Header = () => {
           </div>
         </SheetTrigger>
         <SheetContent>
-          <div className=" md:hidden w-full border-r h-screen border-gray-500  flex flex-col justify-between">
+          <div className=" md:hidden w-full  h-screen border-gray-500  flex flex-col justify-between">
             {/* Logo Section */}
             <div>
               <div className="flex justify-center items-center gap-1 mt-5">
