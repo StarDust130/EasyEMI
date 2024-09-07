@@ -8,6 +8,7 @@ import { Slider } from "../ui/slider";
 import { Input } from "../ui/input";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import {
   Table,
@@ -70,51 +71,49 @@ const EmiCalculator = () => {
   const monthWiseBreakdown = getMonthWiseBreakdown();
 
   // Download as PDF
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
-const downloadPDF = () => {
-  const documentDefinition = {
-    content: [
-      { text: "Month-wise EMI Breakdown", style: "header" },
-      {
-        style: "tableExample",
-        table: {
-          headerRows: 1,
-          widths: ["*", "*", "*", "*", "*"],
-          body: [
-            [
-              "Month",
-              "EMI Paid",
-              "Interest Paid",
-              "Principal Paid",
-              "Remaining Balance",
+  const downloadPDF = () => {
+    const documentDefinition = {
+      content: [
+        { text: "Month-wise EMI Breakdown", style: "header" },
+        {
+          style: "tableExample",
+          table: {
+            headerRows: 1,
+            widths: ["*", "*", "*", "*", "*"],
+            body: [
+              [
+                "Month",
+                "EMI Paid",
+                "Interest Paid",
+                "Principal Paid",
+                "Remaining Balance",
+              ],
+              ...monthWiseBreakdown.map((row) => [
+                row.month,
+                row.emi,
+                row.interestPaid,
+                row.principalPaid,
+                row.remainingBalance,
+              ]),
             ],
-            ...monthWiseBreakdown.map((row) => [
-              row.month,
-              row.emi,
-              row.interestPaid,
-              row.principalPaid,
-              row.remainingBalance,
-            ]),
-          ],
+          },
+          layout: "lightHorizontalLines",
         },
-        layout: "lightHorizontalLines",
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10],
+        },
+        tableExample: {
+          margin: [0, 5, 0, 15],
+        },
       },
-    ],
-    styles: {
-      header: {
-        fontSize: 18,
-        bold: true,
-        margin: [0, 0, 0, 10],
-      },
-      tableExample: {
-        margin: [0, 5, 0, 15],
-      },
-    },
-  };
+    };
 
-  pdfMake.createPdf(documentDefinition).download("EMI_Breakdown.pdf");
-};
+    pdfMake.createPdf(documentDefinition).download("EMI_Breakdown.pdf");
+  };
 
   return (
     <>
