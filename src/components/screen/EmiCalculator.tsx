@@ -31,49 +31,52 @@ const EmiCalculator = () => {
   const [showMonthWise, setShowMonthWise] = useState(false);
   const { toast } = useToast();
 
-  // EMI Calculation
+  // EMI Calculation Logic
   const calculateEMI = () => {
     const principal = loanAmount - prepayment;
     const rate = interestRate / 12 / 100;
     const tenure = loanTenure;
-
-    useEffect(() => {
-      if (principal <= 0 || loanTenure <= 0) {
-        toast({
-          title: "Error",
-          description: "Loan amount and tenure must be greater than 0",
-          variant: "destructive",
-        });
-      }
-    }, [principal, loanTenure]); // This will run when these values change
-
-    useEffect(() => {
-      if (showMonthWise) {
-        toast({
-          title: "EMI Breakdown",
-          description: "Displaying month-wise EMI breakdown.",
-        });
-      }
-    }, [showMonthWise]);
-
-    useEffect(() => {
-      useSlider
-        ? toast({
-            title: "Slider Mode Activated",
-            description: "Use the sliders to adjust the loan details.",
-          })
-        : toast({
-            title: "Input Mode Activated",
-            description: "You can now manually input the loan details.",
-          });
-    }, [useSlider]); // Only runs when useSlider changes
-
     if (principal <= 0 || tenure <= 0) return 0;
+
     const emi =
       (principal * rate * Math.pow(1 + rate, tenure)) /
       (Math.pow(1 + rate, tenure) - 1);
     return emi;
   };
+
+  // useEffect for showing loan errors
+  useEffect(() => {
+    if (loanAmount - prepayment <= 0 || loanTenure <= 0) {
+      toast({
+        title: "Error",
+        description: "Loan amount and tenure must be greater than 0",
+        variant: "destructive",
+      });
+    }
+  }, [loanAmount, prepayment, loanTenure, toast]);
+
+  // useEffect for showing month-wise breakdown
+  useEffect(() => {
+    if (showMonthWise) {
+      toast({
+        title: "EMI Breakdown",
+        description: "Displaying month-wise EMI breakdown.",
+      });
+    }
+  }, [showMonthWise, toast]);
+
+  // useEffect for slider/input mode change
+  useEffect(() => {
+    useSlider
+      ? toast({
+          title: "Slider Mode Activated",
+          description: "Use the sliders to adjust the loan details.",
+        })
+      : toast({
+          title: "Input Mode Activated",
+          description: "You can now manually input the loan details.",
+        });
+  }, [useSlider, toast]);
 
   // Total Payment Calculation
   const emi = calculateEMI();
